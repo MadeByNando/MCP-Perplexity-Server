@@ -152,7 +152,7 @@ Pour un déploiement facile sur un VPS ou tout serveur disposant de Docker, vous
 1. Exécutez cette commande sur votre serveur:
 
    ```bash
-   curl -fsSL https://raw.githubusercontent.com/madebynando/mcp-perplexity-server/main/deploy.sh | bash
+   curl -fsSL https://raw.githubusercontent.com/MadeByNando/mcp-perplexity-server/main/deploy.sh | bash
    ```
 
 2. Naviguez vers le répertoire créé:
@@ -170,7 +170,7 @@ Pour un déploiement facile sur un VPS ou tout serveur disposant de Docker, vous
    Un fichier `.env.example` est également disponible comme référence pour toutes les options de configuration possibles:
 
    ```bash
-   curl -L https://raw.githubusercontent.com/madebynando/mcp-perplexity-server/main/.env.example -o .env.example
+   curl -L https://raw.githubusercontent.com/MadeByNando/mcp-perplexity-server/main/.env.example -o .env.example
    ```
 
 4. Démarrez le serveur:
