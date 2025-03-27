@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  mcp-perplexity-server:
+    image: madebynando/mcp-perplexity-server:latest
+    container_name: mcp-perplexity-server
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - PERPLEXITY_API_KEY=${PERPLEXITY_API_KEY}
+      - PORT=3000
+    volumes:
+      - perplexity_logs:/app/logs
+    networks:
+      - mcp-network
+
+networks:
+  mcp-network:
+    driver: bridge
+
+volumes:
+  perplexity_logs: 

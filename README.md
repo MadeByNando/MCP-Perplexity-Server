@@ -143,6 +143,110 @@ Parameters:
 - The server provides detailed logging for debugging purposes.
 - Log levels include debug, info, and error, which help in tracking the server's operations and troubleshooting issues.
 
+## Docker Deployment
+
+Pour un déploiement facile sur un VPS ou tout serveur disposant de Docker, vous pouvez utiliser l'image Docker publiée.
+
+### Option 1: Déploiement ultra-simplifié (recommandé)
+
+1. Exécutez cette commande sur votre serveur:
+
+   ```bash
+   curl -fsSL https://raw.githubusercontent.com/madebynando/mcp-perplexity-server/main/deploy.sh | bash
+   ```
+
+2. Naviguez vers le répertoire créé:
+
+   ```bash
+   cd mcp-perplexity-deployment
+   ```
+
+3. Éditez le fichier `.env` pour ajouter votre clé API Perplexity:
+
+   ```bash
+   nano .env
+   ```
+
+   Un fichier `.env.example` est également disponible comme référence pour toutes les options de configuration possibles:
+
+   ```bash
+   curl -L https://raw.githubusercontent.com/madebynando/mcp-perplexity-server/main/.env.example -o .env.example
+   ```
+
+4. Démarrez le serveur:
+
+   ```bash
+   docker-compose up -d
+   ```
+
+Le serveur sera accessible à l'adresse `http://votre-ip-serveur:3000/sse`.
+
+### Option 2: Installation manuelle
+
+1. Créez un fichier `docker-compose.yml` sur votre serveur avec le contenu suivant:
+
+   ```yaml
+   version: '3.8'
+
+   services:
+     mcp-perplexity-server:
+       image: madebynando/mcp-perplexity-server:latest
+       container_name: mcp-perplexity-server
+       restart: unless-stopped
+       ports:
+         - "3000:3000"
+       environment:
+         - PERPLEXITY_API_KEY=${PERPLEXITY_API_KEY}
+         - PORT=3000
+       volumes:
+         - perplexity_logs:/app/logs
+       networks:
+         - mcp-network
+
+   networks:
+     mcp-network:
+       driver: bridge
+
+   volumes:
+     perplexity_logs:
+   ```
+
+2. Téléchargez le fichier `.env.example` et utilisez-le comme modèle pour créer votre fichier `.env`:
+
+   ```bash
+   curl -L https://raw.githubusercontent.com/madebynando/mcp-perplexity-server/main/.env.example -o .env.example
+   cp .env.example .env
+   ```
+
+   Éditez ensuite le fichier `.env` pour ajouter votre clé API Perplexity et personnaliser les autres paramètres si nécessaire:
+
+   ```bash
+   nano .env
+   ```
+
+3. Démarrez le serveur:
+
+   ```bash
+   docker-compose up -d
+   ```
+
+### Gestion du conteneur Docker
+
+- Pour consulter les logs:
+  ```bash
+  docker-compose logs -f
+  ```
+
+- Pour arrêter le serveur:
+  ```bash
+  docker-compose down
+  ```
+
+- Pour redémarrer le serveur:
+  ```bash
+  docker-compose restart
+  ```
+
 ## License
 
 MIT
