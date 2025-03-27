@@ -149,37 +149,40 @@ Pour un déploiement facile sur un VPS ou tout serveur disposant de Docker, vous
 
 ### Option 1: Déploiement ultra-simplifié (recommandé)
 
-1. Exécutez cette commande sur votre serveur:
+1. Téléchargez le script de déploiement sur votre serveur:
 
    ```bash
-   curl -fsSL https://raw.githubusercontent.com/MadeByNando/mcp-perplexity-server/main/deploy.sh | bash
+   curl -L https://raw.githubusercontent.com/MadeByNando/mcp-perplexity-server/main/deploy.sh -o deploy.sh
    ```
 
-2. Naviguez vers le répertoire créé:
+2. Rendez le script exécutable et lancez-le:
+
+   ```bash
+   chmod +x deploy.sh
+   ./deploy.sh
+   ```
+
+3. Naviguez vers le répertoire créé:
 
    ```bash
    cd mcp-perplexity-deployment
    ```
 
-3. Éditez le fichier `.env` pour ajouter votre clé API Perplexity:
+4. Éditez le fichier `.env` pour ajouter votre clé API Perplexity:
 
    ```bash
    nano .env
    ```
 
-   Un fichier `.env.example` est également disponible comme référence pour toutes les options de configuration possibles:
+   Un fichier `.env.example` est également disponible comme référence pour toutes les options de configuration possibles.
 
-   ```bash
-   curl -L https://raw.githubusercontent.com/MadeByNando/mcp-perplexity-server/main/.env.example -o .env.example
-   ```
-
-4. Démarrez le serveur:
+5. Démarrez le serveur:
 
    ```bash
    docker-compose up -d
    ```
 
-Le serveur sera accessible à l'adresse `http://votre-ip-serveur:3002/sse`.
+Le serveur sera accessible à l'adresse `http://votre-ip-serveur:3000/sse`.
 
 ### Option 2: Installation manuelle
 
