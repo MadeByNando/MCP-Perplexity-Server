@@ -183,7 +183,7 @@ Pour un déploiement facile sur un VPS ou tout serveur disposant de Docker, vous
    docker-compose up -d
    ```
 
-Le serveur sera accessible à l'adresse `http://votre-ip-serveur:3000/sse`.
+Le serveur sera accessible à l'adresse `http://votre-ip-serveur:3002/sse`.
 
 ### Option 2: Installation manuelle
 
@@ -198,10 +198,10 @@ Le serveur sera accessible à l'adresse `http://votre-ip-serveur:3000/sse`.
        container_name: mcp-perplexity-server
        restart: unless-stopped
        ports:
-         - "3000:3000"
+         - "3002:3002"
        environment:
          - PERPLEXITY_API_KEY=${PERPLEXITY_API_KEY}
-         - PORT=3000
+         - PORT=3002
        volumes:
          - perplexity_logs:/app/logs
        networks:
