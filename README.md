@@ -26,8 +26,13 @@ A Model Context Protocol (MCP) server that provides integration with the Perplex
 3. Create a `.env` file with your Perplexity API key:
 
    ```bash
-   PERPLEXITY_API_KEY=your_api_key_here
-   PORT=3000 # Optional: specify the port for SSE transport (default: 3000)
+   cp .env.example .env
+   ```
+
+   Then edit the `.env` file to add your Perplexity API key and customize other settings as needed:
+
+   ```bash
+   nano .env
    ```
 
 4. Build the project:
