@@ -76,6 +76,7 @@ A Model Context Protocol (MCP) server that provides integration with the Perplex
    This will start the server with SSE transport on the port specified in the `.env` file (default: 3002).
 
 2. Configure any MCP-compatible client to connect to the server using the SSE endpoint:
+
    - SSE endpoint: `http://your-server-address:3002/sse`
    - Messages endpoint: `http://your-server-address:3002/messages`
 
@@ -149,44 +150,47 @@ Pour un déploiement facile sur un VPS ou tout serveur disposant de Docker, vous
 
 ### Option 1: Déploiement ultra-simplifié (recommandé)
 
-1. Exécutez cette commande sur votre serveur:
+1. Téléchargez le script de déploiement sur votre serveur:
 
    ```bash
-   curl -fsSL https://raw.githubusercontent.com/MadeByNando/mcp-perplexity-server/main/deploy.sh | bash
+   curl -L https://raw.githubusercontent.com/MadeByNando/mcp-perplexity-server/main/deploy.sh -o deploy.sh
    ```
 
-2. Naviguez vers le répertoire créé:
+2. Rendez le script exécutable et lancez-le:
+
+   ```bash
+   chmod +x deploy.sh
+   ./deploy.sh
+   ```
+
+3. Naviguez vers le répertoire créé:
 
    ```bash
    cd mcp-perplexity-deployment
    ```
 
-3. Éditez le fichier `.env` pour ajouter votre clé API Perplexity:
+4. Éditez le fichier `.env` pour ajouter votre clé API Perplexity:
 
    ```bash
    nano .env
    ```
 
-   Un fichier `.env.example` est également disponible comme référence pour toutes les options de configuration possibles:
+   Un fichier `.env.example` est également disponible comme référence pour toutes les options de configuration possibles.
 
-   ```bash
-   curl -L https://raw.githubusercontent.com/MadeByNando/mcp-perplexity-server/main/.env.example -o .env.example
-   ```
-
-4. Démarrez le serveur:
+5. Démarrez le serveur:
 
    ```bash
    docker-compose up -d
    ```
 
-Le serveur sera accessible à l'adresse `http://votre-ip-serveur:3002/sse`.
+Le serveur sera accessible à l'adresse `http://votre-ip-serveur:3000/sse`.
 
 ### Option 2: Installation manuelle
 
 1. Créez un fichier `docker-compose.yml` sur votre serveur avec le contenu suivant:
 
    ```yaml
-   version: '3.8'
+   version: "3.8"
 
    services:
      mcp-perplexity-server:
@@ -194,10 +198,10 @@ Le serveur sera accessible à l'adresse `http://votre-ip-serveur:3002/sse`.
        container_name: mcp-perplexity-server
        restart: unless-stopped
        ports:
-         - "3002:3002"
+         - "3000:3000"
        environment:
          - PERPLEXITY_API_KEY=${PERPLEXITY_API_KEY}
-         - PORT=3002
+         - PORT=3000
        volumes:
          - perplexity_logs:/app/logs
        networks:
@@ -233,11 +237,13 @@ Le serveur sera accessible à l'adresse `http://votre-ip-serveur:3002/sse`.
 ### Gestion du conteneur Docker
 
 - Pour consulter les logs:
+
   ```bash
   docker-compose logs -f
   ```
 
 - Pour arrêter le serveur:
+
   ```bash
   docker-compose down
   ```
@@ -246,6 +252,38 @@ Le serveur sera accessible à l'adresse `http://votre-ip-serveur:3002/sse`.
   ```bash
   docker-compose restart
   ```
+
+## Construction d'une image multi-architecture
+
+Si vous rencontrez des problèmes de compatibilité d'architecture (par exemple, entre un Mac M1/M2/M3 et un VPS x86_64), vous pouvez construire et publier une image Docker multi-architecture. Cette image sera compatible avec les deux types de processeurs.
+
+### Prérequis
+
+- Docker Desktop avec buildx (installé par défaut dans les versions récentes)
+- Un compte Docker Hub
+
+### Étapes pour construire l'image multi-architecture
+
+1. Téléchargez le script de construction:
+
+   ```bash
+   curl -L https://raw.githubusercontent.com/MadeByNando/mcp-perplexity-server/main/build-multiarch.sh -o build-multiarch.sh
+   ```
+
+2. Rendez le script exécutable et lancez-le:
+
+   ```bash
+   chmod +x build-multiarch.sh
+   ./build-multiarch.sh
+   ```
+
+Ce script va:
+
+1. Créer et configurer un builder multi-architecture avec Docker buildx
+2. Construire l'image Docker pour les architectures ARM64 (Mac M1/M2/M3) et AMD64 (VPS standard)
+3. Pousser l'image sur Docker Hub sous le tag `madebynando/mcp-perplexity-server:latest`
+
+Une fois l'image publiée, vous pouvez l'utiliser dans votre fichier docker-compose.yml sur n'importe quelle plateforme, qu'il s'agisse d'un Mac avec puce Apple Silicon ou d'un serveur VPS standard.
 
 ## License
 
