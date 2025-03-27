@@ -33,7 +33,7 @@ if (!PERPLEXITY_API_KEY) {
 }
 
 // Get port from environment or use default
-const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
+const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3002;
 
 // Initialize Perplexity client using OpenAI SDK with custom baseURL
 const perplexity = new OpenAI({

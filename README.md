@@ -73,11 +73,11 @@ A Model Context Protocol (MCP) server that provides integration with the Perplex
    npm run start:sse
    ```
 
-   This will start the server with SSE transport on the port specified in the `.env` file (default: 3000).
+   This will start the server with SSE transport on the port specified in the `.env` file (default: 3002).
 
 2. Configure any MCP-compatible client to connect to the server using the SSE endpoint:
-   - SSE endpoint: `http://your-server-address:3000/sse`
-   - Messages endpoint: `http://your-server-address:3000/messages`
+   - SSE endpoint: `http://your-server-address:3002/sse`
+   - Messages endpoint: `http://your-server-address:3002/messages`
 
 3. For Claude Desktop, add the following to your `claude_desktop_config.json`:
 
@@ -87,8 +87,8 @@ A Model Context Protocol (MCP) server that provides integration with the Perplex
        "perplexity-api-remote": {
          "transport": {
            "type": "sse",
-           "url": "http://localhost:3000/sse",
-           "messagesUrl": "http://localhost:3000/messages"
+           "url": "http://localhost:3002/sse",
+           "messagesUrl": "http://localhost:3002/messages"
          }
        }
      }
@@ -107,7 +107,7 @@ A Model Context Protocol (MCP) server that provides integration with the Perplex
    {
      "mcpServers": {
        "perplexity-mcp-server": {
-         "url": "http://localhost:3000/sse"
+         "url": "http://localhost:3002/sse"
        }
      }
    }
@@ -179,7 +179,7 @@ Pour un déploiement facile sur un VPS ou tout serveur disposant de Docker, vous
    docker-compose up -d
    ```
 
-Le serveur sera accessible à l'adresse `http://votre-ip-serveur:3000/sse`.
+Le serveur sera accessible à l'adresse `http://votre-ip-serveur:3002/sse`.
 
 ### Option 2: Installation manuelle
 
@@ -194,10 +194,10 @@ Le serveur sera accessible à l'adresse `http://votre-ip-serveur:3000/sse`.
        container_name: mcp-perplexity-server
        restart: unless-stopped
        ports:
-         - "3000:3000"
+         - "3002:3002"
        environment:
          - PERPLEXITY_API_KEY=${PERPLEXITY_API_KEY}
-         - PORT=3000
+         - PORT=3002
        volumes:
          - perplexity_logs:/app/logs
        networks:

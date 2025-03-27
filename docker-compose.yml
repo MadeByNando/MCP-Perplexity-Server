@@ -6,10 +6,10 @@ services:
     container_name: mcp-perplexity-server
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "3002:3002"
     environment:
       - PERPLEXITY_API_KEY=${PERPLEXITY_API_KEY}
-      - PORT=3000
+      - PORT=3002
     volumes:
       - perplexity_logs:/app/logs
     networks:

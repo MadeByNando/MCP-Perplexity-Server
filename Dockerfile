@@ -14,7 +14,7 @@ COPY tsconfig.json ./
 RUN npm run build
 
 # Expose the port the app runs on
-EXPOSE 3000
+EXPOSE 3002
 
 # Create a non-root user
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
