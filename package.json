@@ -1,0 +1,41 @@
+{
+  "name": "mcp-perplexity-server",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "MCP server for Perplexity API integration",
+  "main": "build/index.js",
+  "bin": {
+    "mcp-perplexity-server": "./build/index.js"
+  },
+  "scripts": {
+    "build": "tsc && chmod 755 build/index.js",
+    "start": "node build/index.js",
+    "start:sse": "node build/index.js --sse",
+    "dev:sse": "npm run build && npm run start:sse"
+  },
+  "files": [
+    "build"
+  ],
+  "keywords": [
+    "mcp",
+    "perplexity",
+    "ai"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.8.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^5.0.1",
+    "express-rate-limit": "^7.5.0",
+    "openai": "^4.89.1",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.13.14",
+    "typescript": "^5.8.2"
+  }
+}
