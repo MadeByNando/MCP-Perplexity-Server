@@ -1,6 +1,6 @@
 # MCP Perplexity Server
 
-A Model Context Protocol (MCP) server that provides integration with the Perplexity API.
+A Model Context Protocol (MCP) server that provides integration with the Perplexity API using the OpenAI SDK.
 
 ## Features
 
@@ -11,6 +11,8 @@ A Model Context Protocol (MCP) server that provides integration with the Perplex
 - Multiple transport options:
   - STDIO transport for local clients
   - SSE transport for remote clients over HTTP
+- Uses OpenAI SDK with custom base URL for Perplexity API
+- Detailed logging for debugging with levels: debug, info, error
 
 ## Installation
 
@@ -88,6 +90,28 @@ A Model Context Protocol (MCP) server that provides integration with the Perplex
    }
    ```
 
+### Using with Cursor
+
+1. Ensure that the server is running with SSE transport as described above.
+
+2. In Cursor, navigate to Settings > MCP.
+
+3. Add a new MCP server configuration using the following example in your `mcp.json`:
+
+   ```json
+   {
+     "mcpServers": {
+       "perplexity-mcp-server": {
+         "url": "http://localhost:3000/sse"
+       }
+     }
+   }
+   ```
+
+4. Save the configuration and refresh the connection if necessary.
+
+5. You can now use the Perplexity tools within Cursor by accessing the MCP features.
+
 ## Available Tools
 
 ### perplexity-query
@@ -108,6 +132,11 @@ Parameters:
 
 - `query` (required): The search query
 - `model` (optional): The model to use, either "sonar-pro" or "sonar-reasoning-pro" (default: "sonar-pro")
+
+## Logging and Debugging
+
+- The server provides detailed logging for debugging purposes.
+- Log levels include debug, info, and error, which help in tracking the server's operations and troubleshooting issues.
 
 ## License
 
