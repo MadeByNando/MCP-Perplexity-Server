@@ -178,7 +178,9 @@ async function main() {
       
       // Authentication middleware
       const authenticate = (req: express.Request, res: express.Response, next: express.NextFunction) => {
-        const apiKey = req.headers['x-api-key'] || req.query.api_key;
+        const apiKey = req.query.api_key;
+        console.log("apiKey", apiKey);
+        console.log("MCP_API_KEY", MCP_API_KEY);
         
         if (!apiKey || apiKey !== MCP_API_KEY) {
           logger.error(`Authentication failed: Invalid API key provided: ${apiKey}`);
