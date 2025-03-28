@@ -251,6 +251,7 @@ Le serveur sera accessible à l'adresse `http://votre-ip-serveur:3002/sse`.
   ```
 
 - Pour redémarrer le serveur:
+
   ```bash
   docker-compose restart
   ```
