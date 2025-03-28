@@ -9,6 +9,7 @@ services:
       - "3002:3002"
     environment:
       - PERPLEXITY_API_KEY=${PERPLEXITY_API_KEY}
+      - MCP_API_KEY=${MCP_API_KEY}
       - PORT=3002
     volumes:
       - perplexity_logs:/app/logs
