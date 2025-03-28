@@ -100,7 +100,7 @@ A Model Context Protocol (MCP) server that provides integration with the Perplex
 
 1. Ensure that the server is running with SSE transport as described above.
 
-2. In Cursor, navigate to Settings > MCP.
+2. In Cursor, navigate to Settings > Features > MCP.
 
 3. Add a new MCP server configuration using the following example in your `mcp.json`:
 
@@ -108,11 +108,13 @@ A Model Context Protocol (MCP) server that provides integration with the Perplex
    {
      "mcpServers": {
        "perplexity-mcp-server": {
-         "url": "http://localhost:3002/sse"
+         "url": "http://localhost:3002/sse?api_key=your-secure-api-key-here"
        }
      }
    }
    ```
+
+   Note: Replace `your-secure-api-key-here` with the value of `MCP_API_KEY` from your `.env` file.
 
 4. Save the configuration and refresh the connection if necessary.
 

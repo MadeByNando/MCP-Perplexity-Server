@@ -32,6 +32,9 @@ if (!PERPLEXITY_API_KEY) {
   process.exit(1);
 }
 
+// API key for MCP server authentication
+const MCP_API_KEY = process.env.MCP_API_KEY || "changeme-secure-key-123";
+
 // Get port from environment or use default
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3002;
 
@@ -173,6 +176,19 @@ async function main() {
       app.use(cors());
       app.use(express.json());
       
+      // Authentication middleware
+      const authenticate = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        const apiKey = req.headers['x-api-key'] || req.query.api_key;
+        
+        if (!apiKey || apiKey !== MCP_API_KEY) {
+          logger.error(`Authentication failed: Invalid API key provided: ${apiKey}`);
+          res.status(401).json({ error: "Unauthorized: Invalid API key" });
+          return;
+        }
+        
+        next();
+      };
+      
       // Apply rate limiting
       const limiter = rateLimit({
         windowMs: 15 * 60 * 1000, // 15 minutes
@@ -195,7 +211,7 @@ async function main() {
       });
       
       // SSE endpoint
-      app.get("/sse", (req, res) => {
+      app.get("/sse", authenticate, (req, res) => {
         connectionCount++;
         const connectionId = connectionCount.toString();
         
